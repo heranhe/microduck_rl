@@ -239,6 +239,10 @@ def run_export(task_id: str, cfg: ExportConfig):
 
     metadata = get_base_metadata(runner.env.unwrapped, run_path=cfg.checkpoint_file)
     attach_metadata_to_onnx(onnx_path, metadata)
+    if task_id in {"Mjlab-Tripod-Flat-Jumper", "Mjlab-Stand-Flat-Jumper"}:
+        from mjlab_microduck.robot.jumper_model import stamp_policy
+
+        stamp_policy(Path(onnx_path))
 
     print(f"Written {onnx_path}")
 

@@ -268,3 +268,8 @@ for _task_id, _make_cfg, _kw, _rl_cfg, _robot_cfg in _BACKLASH_TASKS:
         rl_cfg=_rl_cfg,
         runner_cls=MicroduckOnPolicyRunner,
     )
+
+# Jumper has its own layout and PD model; duck tasks remain unchanged.
+from .jumper_env_cfg import register_jumper_tasks
+
+register_jumper_tasks()

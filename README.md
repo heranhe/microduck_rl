@@ -193,3 +193,14 @@ joint-index mappings, reward sign conventions, and NaN guards.
 
 This project is licensed under the Apache 2.0 License. See the [LICENSE](LICENSE) file for details.
 3D model files are licensed under Creative Commons BY-SA-NC.
+
+## “跳跳”（Jumper）六足机器人（仿真原型）
+
+新增 `Mjlab-Stand-Flat-Jumper` 和 `Mjlab-Tripod-Flat-Jumper`，沿用 mjlab 1.3。先执行 `uv run scripts/fetch_jumper.py` 获取固定版本与 SHA-256 校验的模型资源。22 个物理关节中两夹爪保持 HOME，策略为 71 维观测 / 20 维动作，控制频率 50 Hz，独立契约 `jumper-lab-71-v1`。`scripts/export.py` 导出归一化策略并写入本地实验室可识别的契约元数据。
+
+```bash
+uv run train Mjlab-Stand-Flat-Jumper --env.scene.num-envs 1024
+uv run train Mjlab-Tripod-Flat-Jumper --env.scene.num-envs 1024
+```
+
+这是恒定力矩限幅 PD 的实验室适配，不能直接使用官方 Jumper 的历史观测策略，尚未验证 GPU 收敛与实机部署。完整配置、来源与使用方式见 [跳跳接入说明](https://github.com/heranhe/microduck-lab-cloud/blob/main/docs/jumper.md)。
